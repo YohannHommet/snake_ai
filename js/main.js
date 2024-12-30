@@ -22,4 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const game = new Game(canvas, snake, food, grid, scoreBoard, difficultyManager);
     game.draw();
+});
+
+window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+    }, 1500); // Affiche le loading screen pendant 1.5 secondes
 }); 
