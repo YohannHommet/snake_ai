@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Snake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="high-scores">
+            <h2>HIGH SCORES</h2>
+            <div id="highScoresList"></div>
+        </div>
+        <div class="difficulty-selector">
+            <button class="difficulty-btn" data-difficulty="easy">EASY</button>
+            <button class="difficulty-btn active" data-difficulty="medium">MEDIUM</button>
+            <button class="difficulty-btn" data-difficulty="hard">HARD</button>
+        </div>
+        <div class="score-board">
+            <div class="current-difficulty"></div>
+            SCORE: <span id="score">0</span>
+        </div>
+        <div class="sound-control">
+            <button id="soundToggle" class="icon-button">
+                <span class="sound-icon">🔊</span>
+            </button>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div class="controls">
+            <button id="startButton">Initialize</button>
+            <button id="pauseButton">Suspend</button>
+        </div>
+    </div>
+    
+    <script type="module" src="js/main.js"></script>
+</body>
+</html> 
