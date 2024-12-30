@@ -137,53 +137,54 @@ button:active {
   content: '🔇';
 }
 
-.high-scores {
+.high-scores-container {
   position: absolute;
-  left: -248px;
+  left: -250px;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(10, 0, 20, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   border: 2px solid #0ff;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 5px;
+  padding: 15px;
   width: 180px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+  transition: all 0.3s ease;
 }
 
-.high-scores h2 {
-  color: #f0f;
-  font-size: 20px;
-  margin: 0 0 15px 0;
-  text-shadow: 0 0 10px #f0f;
+.high-scores-container.hidden {
+  transform: translate(0, -50%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.high-scores-container:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.high-scores-container h2 {
+  color: #0ff;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.2em;
 }
 
 .high-score-item {
-  color: #0ff;
-  margin: 10px 0;
-  font-size: 16px;
   display: flex;
   justify-content: space-between;
-  text-shadow: 0 0 5px #0ff;
-}
-
-.high-score-item.new-score {
-  animation: scoreGlow 1s ease-in-out infinite alternate;
-}
-
-@keyframes scoreGlow {
-  from {
-    text-shadow: 0 0 5px #0ff;
-  }
-
-  to {
-    text-shadow: 0 0 20px #f0f;
-    color: #f0f;
-  }
+  color: #fff;
+  margin: 5px 0;
+  padding: 5px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  font-family: 'Orbitron', sans-serif;
 }
 
 .score-date {
-  font-size: 12px;
-  opacity: 0.8;
+  font-size: 0.8em;
+  color: #0ff;
+  opacity: 0.7;
 }
 
 .difficulty-selector {
@@ -307,5 +308,250 @@ button:active {
 
   to {
     transform: scaleX(0);
+  }
+}
+
+/* Helper tooltip - Modification de la position */
+.helper-tooltip {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.helper-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid #0ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #0ff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.helper-icon:hover {
+  background: rgba(255, 0, 255, 0.1);
+  border-color: #f0f;
+  color: #f0f;
+  transform: scale(1.1);
+}
+
+.helper-content {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 250px;
+  background: rgba(10, 0, 20, 0.95);
+  border: 2px solid #0ff;
+  border-radius: 10px;
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  z-index: 1001;
+}
+
+.helper-tooltip:hover .helper-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.helper-content h3 {
+  color: #0ff;
+  margin: 0 0 10px;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.helper-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.helper-content li {
+  color: #fff;
+  padding: 8px 0;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+  text-align: left;
+  line-height: 1.4;
+}
+
+.helper-content li:last-child {
+  border-bottom: none;
+}
+
+/* Loading screen */
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 0, 20, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-content h1 {
+  color: #0ff;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #0ff;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(0, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.loading-bar::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: #0ff;
+  animation: loading 1s ease infinite;
+  box-shadow: 0 0 10px #0ff;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Social Links */
+.social-links {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 60px;
+  z-index: 1000;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.05);
+  border: 2px solid #0ff;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.social-icon::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #0ff, #f0f, #0ff);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: borderGlow 3s linear infinite;
+}
+
+.social-icon:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+.social-icon:hover::before {
+  opacity: 1;
+}
+
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #0ff;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+}
+
+.social-icon:hover svg {
+  fill: #f0f;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.7));
+}
+
+/* Animations spécifiques pour chaque icône */
+.icon-github {
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+.icon-linkedin {
+  animation: neonPulse 2s ease-in-out infinite 0.3s;
+}
+
+.icon-twitter {
+  animation: neonPulse 2s ease-in-out infinite 0.6s;
+}
+
+@keyframes neonPulse {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
   }
 }
