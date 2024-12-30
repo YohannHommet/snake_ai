@@ -234,14 +234,21 @@ export class Game {
 
     updateHighScoresDisplay() {
         const highScoresList = document.getElementById('highScoresList');
+        const highScoresContainer = document.querySelector('.high-scores-container');
         const scores = this.highScoreManager.getScores();
         
-        highScoresList.innerHTML = scores.map((score, index) => `
-            <div class="high-score-item">
-                <span>${index + 1}. ${score.score}</span>
-                <span class="score-date">${score.date}</span>
-            </div>
-        `).join('');
+        highScoresContainer.classList.toggle('hidden', scores.length === 0);
+        
+        if (scores.length > 0) {
+            highScoresList.innerHTML = scores.map((score, index) => `
+                <div class="high-score-item">
+                    <span>${index + 1}. ${score.score}</span>
+                    <span class="score-date">${score.date}</span>
+                </div>
+            `).join('');
+
+            highScoresContainer.style.display = 'block';
+        }
     }
 
     updateDifficultyDisplay() {
