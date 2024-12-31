@@ -1,8 +1,20 @@
-# Snake Game - Cyberpunk Edition
+# 🎮 Snake - Cyberpunk Edition
+
+<div align="center">
+
+![GitHub last commit](https://img.shields.io/github/last-commit/YohannHommet/snake_ai?color=%230ff&style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/YohannHommet/snake_ai?color=%23f0f&style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-blue?color=%230ff&style=for-the-badge)
+
+<img src="assets/images/preview.png" alt="Cyber Snake Preview" width="400"/>
 
 A modern implementation of the classic Snake game with a cyberpunk twist, built using vanilla JavaScript.
 
-## Features
+[Play Now](https://snake-cyberpunk.netlify.app/) · [Report Bug](https://github.com/YohannHommet/snake_ai/issues)
+
+</div>
+
+## ✨ Features
 
 - 🎮 Classic snake gameplay with modern controls
 - 🌟 Cyberpunk visual theme with glitch effects
@@ -12,12 +24,12 @@ A modern implementation of the classic Snake game with a cyberpunk twist, built 
 - 🎯 Multiple difficulty levels
 - ✨ Particle effects and visual feedback
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- A modern web browser
-- A local web server (can use Live Server extension in VS Code)
+- 🌐 A modern web browser
+- 💻 A local web server (can use Live Server extension in VS Code)
 
 ### Installation
 
@@ -38,20 +50,20 @@ cd snake-ai
 
 4. Open your browser and navigate to the local server address (typically `http://localhost:8000`)
 
-## Game Controls
+## 🎮 Game Controls
 
-- Arrow keys to control snake direction
-- 'M' to mute/unmute sound
-- Space to pause/resume game
-- Click difficulty buttons to change game speed
+- ⬆️ ⬇️ ⬅️ ➡️ Arrow keys to control snake direction
+- 🔊 'M' to mute/unmute sound
+- ⏸️ Space to pause/resume game
+- 🎯 Click difficulty buttons to change game speed
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 snake-ai/
-├── css/
+├── 📁 css/
 │ └── style.css
-├── js/
+├── 📁 js/
 │ ├── game.js
 │ ├── snake.js
 │ ├── food.js
@@ -63,16 +75,16 @@ snake-ai/
 │ ├── particleSystem.js
 │ ├── visualEffects.js
 │ └── difficultyManager.js
-├── sounds/
+├── 📁 sounds/
 │ ├── eat.mp3
 │ ├── gameOver.mp3
 │ ├── powerUp.mp3
 │ └── start.mp3
-├── index.html
-└── README.md
+├── 📄 index.html
+└── 📄 README.md
 ```
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -80,6 +92,23 @@ snake-ai/
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Font: [Orbitron](https://fonts.google.com/specimen/Orbitron)
+- Sound Effects: [OpenGameArt](https://opengameart.org/)
+
+## 📬 Contact
+
+Yohann Hommet - [@yohannhommet](https://twitter.com/yohannhommet)
+
+Project Link: [https://github.com/yohannhommet/snake-ai](https://github.com/yohannhommet/snake-ai)
+
+<div align="center">
+
+Made with ❤️ by [Yohann Hommet](https://github.com/yohannhommet)
+
+</div>
