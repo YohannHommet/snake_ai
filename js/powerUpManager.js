@@ -30,6 +30,22 @@ export class PowerUpManager {
                 icon: '❄️',
                 effect: 'Ralentit le temps',
                 probability: 0.2
+            },
+            timeWarp: {
+                duration: 5000,
+                color: '#ff00ff',
+                icon: '🌀',
+                effect: 'Inverse le temps',
+                probability: 0.1,
+                locked: true
+            },
+            ghostMode: {
+                duration: 4000,
+                color: '#4444ff',
+                icon: '👻',
+                effect: 'Traverse les murs',
+                probability: 0.1,
+                locked: true
             }
         };
 
@@ -39,7 +55,11 @@ export class PowerUpManager {
     spawnPowerUp() {
         if (!this.powerUpPosition && !this.spawnTimer) {
             this.spawnTimer = setTimeout(() => {
-                const availableTypes = Object.keys(this.types);
+                // Filtrer les power-ups débloqués
+                const availableTypes = Object.entries(this.types)
+                    .filter(([key, value]) => !value.locked)
+                    .map(([key]) => key);
+                
                 const randomType = availableTypes[Math.floor(Math.random() * availableTypes.length)];
                 
                 const maxX = this.grid.width / this.grid.cellSize;
@@ -253,5 +273,12 @@ export class PowerUpManager {
             window.game.resetGameSpeed();
             window.game.resetScoreMultiplier();
         }
+    }
+
+    // Méthode pour mettre à jour les power-ups débloqués
+    updateUnlockedPowerUps(unlockedPowerUps) {
+        Object.keys(this.types).forEach(powerUp => {
+            this.types[powerUp].locked = !unlockedPowerUps.includes(powerUp);
+        });
     }
 } 

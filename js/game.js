@@ -3,6 +3,7 @@ import { HighScoreManager } from './highScoreManager.js';
 import { ParticleSystem } from './particleSystem.js';
 import { PowerUpManager } from './powerUpManager.js';
 import { VisualEffects } from './visualEffects.js';
+import { ProgressionSystem } from './progressionSystem.js';
 
 const GameState = {
     MENU: 'menu',
@@ -58,6 +59,15 @@ export class Game {
         // Gestion des power-ups
         this.currentSpeed = difficultyManager.getSpeed();
         this.baseSpeed = this.currentSpeed;
+        
+        // Ajouter le système de progression
+        this.progressionSystem = new ProgressionSystem();
+        
+        // Synchroniser les power-ups débloqués
+        this.powerUpManager.updateUnlockedPowerUps(this.progressionSystem.unlockedPowerUps);
+        
+        // Créer l'UI de progression
+        this.createProgressionUI();
     }
 
     setState(newState) {
@@ -192,6 +202,10 @@ export class Game {
             this.food.relocate();
             this.scoreBoard.increment();
             this.soundManager.play('eat');
+            
+            // Ajouter de l'XP quand le serpent mange
+            const xpGain = 100 * this.scoreBoard.multiplier * this.difficultyManager.getScoreMultiplier();
+            this.progressionSystem.addXP(xpGain);
         }
 
         if (this.powerUpManager.collectPowerUp(this.snake, this)) {
@@ -331,5 +345,24 @@ export class Game {
             baseSpeed: this.baseSpeed,
             difficultySpeed: this.difficultyManager.getSpeed()
         };
+    }
+
+    createProgressionUI() {
+        const ui = document.createElement('div');
+        ui.className = 'progression-ui';
+        ui.innerHTML = `
+            <div class="level-display">Level 1</div>
+            <div class="xp-bar">
+                <div class="xp-progress"></div>
+            </div>
+            <div class="xp-display">0/1000</div>
+        `;
+        document.body.appendChild(ui);
+        this.progressionSystem.updateUI();
+    }
+
+    // Ajouter un listener pour les nouveaux power-ups débloqués
+    onPowerUpUnlocked(powerUp) {
+        this.powerUpManager.updateUnlockedPowerUps(this.progressionSystem.unlockedPowerUps);
     }
 } 
