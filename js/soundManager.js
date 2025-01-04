@@ -1,11 +1,12 @@
 export class SoundManager {
     constructor() {
         this.sounds = {
-            eat: new Audio('sounds/eat.wav'),
-            gameOver: new Audio('sounds/gameover.wav'),
-            start: new Audio('sounds/start.wav'),
-            pause: new Audio('sounds/pause.wav'),
-            highScore: new Audio('sounds/highscore.wav')
+            eat: new Audio('assets/sounds/eat.mp3'),
+            gameOver: new Audio('assets/sounds/gameOver.mp3'),
+            start: new Audio('assets/sounds/start.mp3'),
+            powerUp: new Audio('assets/sounds/powerUp.mp3'),
+            // pause: new Audio('assets/sounds/pause.mp3'),
+            // highScore: new Audio('assets/sounds/highscore.mp3')
         };
 
         // Précharger les sons
@@ -27,7 +28,6 @@ export class SoundManager {
 
     toggleMute() {
         this.muted = !this.muted;
-        return this.muted;
     }
 
     setVolume(volume) {

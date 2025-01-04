@@ -14,7 +14,7 @@ export class DifficultyManager {
                 color: '#ff0'
             },
             hard: {
-                speed: 70,
+                speed: 60,
                 scoreMultiplier: 3,
                 name: 'HARD',
                 color: '#f0f'
@@ -31,7 +31,7 @@ export class DifficultyManager {
     setDifficulty(level) {
         if (this.difficulties[level]) {
             this.currentDifficulty = level;
-            return this.difficulties[level];
+            return this.difficulties[level].speed;
         }
         
         return null;

@@ -28,5 +28,5 @@ window.addEventListener('load', () => {
     const loadingScreen = document.getElementById('loading-screen');
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
-    }, 1500); // Affiche le loading screen pendant 1.5 secondes
-}); 
+    }, Math.floor(Math.random() * 1000) + 1000);
+});

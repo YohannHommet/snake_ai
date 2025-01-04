@@ -103,15 +103,21 @@ export class PowerUpManager {
             clearTimeout(this.effectTimer);
         }
 
+        this.activeEffect = this.activePowerUp;
+
         switch (this.activePowerUp) {
             case 'speedBoost':
-                game.setGameSpeed(game.baseSpeed / 2);
+                const currentSpeed = game.difficultyManager.getSpeed();
+                const boostedSpeed = currentSpeed / 2;  // Deux fois plus rapide
+                game.setGameSpeed(boostedSpeed);
                 break;
             case 'scoreMultiplier':
                 game.setScoreMultiplier(3);
                 break;
             case 'timeFreeze':
-                game.setGameSpeed(game.baseSpeed * 1.5);
+                const baseSpeed = game.difficultyManager.getSpeed();
+                const frozenSpeed = baseSpeed * 1.5;  // 50% plus lent
+                game.setGameSpeed(frozenSpeed);
                 break;
         }
 
@@ -119,12 +125,21 @@ export class PowerUpManager {
 
         this.effectTimer = setTimeout(() => {
             this.deactivateEffect(game);
+            this.activeEffect = null;
         }, powerUp.duration);
     }
 
     deactivateEffect(game) {
-        game.resetGameSpeed();
-        game.resetScoreMultiplier();
+        switch (this.activeEffect) {
+            case 'speedBoost':
+            case 'timeFreeze':
+                game.resetGameSpeed();
+                break;
+            case 'scoreMultiplier':
+                game.resetScoreMultiplier();
+                break;
+        }
+
         const ui = document.querySelector('.power-up-ui');
         if (ui) {
             ui.classList.remove('active');

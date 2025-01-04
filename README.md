@@ -1,10 +1,12 @@
-# 🎮 Snake - Cyberpunk Edition
+# 🎮 Cyber Snake
 
 <div align="center">
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/YohannHommet/snake_ai?color=%230ff&style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/YohannHommet/snake_ai?color=%23f0f&style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-blue?color=%230ff&style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/YohannHommet/snake_ai?color=%230ff&style=for-the-badge)
+
 
 <img src="assets/images/preview.png" alt="Cyber Snake Preview" width="400"/>
 
@@ -35,17 +37,16 @@ A modern implementation of the classic Snake game with a cyberpunk twist, built 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/snake-ai.git
+git clone https://github.com/YohannHommet/snake_ai.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd snake-ai
+cd snake_ai
 ```
 
 3. Start a local server:
    - Using VS Code: Install "Live Server" extension and click "Go Live"
-   - Using Python: `python -m http.server 8000`
    - Using Node.js: `npx serve`
 
 4. Open your browser and navigate to the local server address (typically `http://localhost:8000`)
@@ -88,7 +89,7 @@ snake-ai/
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+3. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
@@ -105,9 +106,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Yohann Hommet - [@yohannhommet](https://twitter.com/yohannhommet)
 
-Project Link: [https://github.com/yohannhommet/snake-ai](https://github.com/yohannhommet/snake-ai)
+---
 
 <div align="center">
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7ff8290a-03cd-4e4c-b33d-64d977932734/deploy-status)](https://app.netlify.com/sites/snake-cyberpunk/deploys)  
+[https://snake-cyberpunk.netlify.app/](https://snake-cyberpunk.netlify.app/)
 
 Made with ❤️ by [Yohann Hommet](https://github.com/yohannhommet)
 

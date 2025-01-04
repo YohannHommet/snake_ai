@@ -4,11 +4,13 @@ export class ScoreBoard {
         this.scoreElement = document.getElementById('score');
         this.difficultyManager = difficultyManager;
         this.multiplier = 1;
+        this.basePoints = 10;
     }
 
     increment() {
         const difficultyMultiplier = this.difficultyManager.getScoreMultiplier();
-        this.score += 10 * difficultyMultiplier * this.multiplier;
+        const totalPoints = this.basePoints * difficultyMultiplier * this.multiplier;
+        this.score += totalPoints;
         this.update();
     }
 

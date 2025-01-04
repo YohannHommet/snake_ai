@@ -51,6 +51,10 @@ export class Game {
         this.bindEvents();
         this.updateHighScoresDisplay();
         this.updateDifficultyDisplay();
+        
+        // Gestion des power-ups
+        this.currentSpeed = difficultyManager.getSpeed();
+        this.baseSpeed = this.currentSpeed;
     }
 
     setState(newState) {
@@ -98,9 +102,9 @@ export class Game {
         if (!this.isRunning) return;
         
         const deltaTime = currentTime - this.lastTime;
-        const speed = this.difficultyManager.getSpeed();
+        const speed = this.currentSpeed;
         
-        if (deltaTime >= speed || !this.lastTime) {  // Ajout d'une condition pour le premier frame
+        if (deltaTime >= speed || !this.lastTime) {
             this.update();
             this.lastTime = currentTime;
             this.draw();
@@ -195,11 +199,27 @@ export class Game {
                 'ArrowRight': { x: 1, y: 0 }
             };
 
+            // Gestion du son (M)
             if (e.key.toLowerCase() === 'm') {
-                const isMuted = this.soundManager.toggleMute();
+                this.soundManager.toggleMute();
+                return;
+            }
+            
+            // Gestion de la pause (Espace)
+            if (e.code === 'Space') {
+                e.preventDefault(); // Empêcher le défilement de la page
+                this.setState(this.state === GameState.PLAYING ? GameState.PAUSED : GameState.PLAYING);
                 return;
             }
 
+            // Gestion de la pause (Entrée)
+            if (e.code === 'Enter') {
+                e.preventDefault();
+                this.setState(this.state === GameState.PLAYING ? GameState.PAUSED : GameState.PLAYING);
+                return;
+            }
+
+            // Gestion des directions
             if (directions[e.key]) {
                 e.preventDefault();
                 const newDirection = directions[e.key];
@@ -226,7 +246,9 @@ export class Game {
                 btn.classList.add('active');
                 
                 const difficulty = btn.dataset.difficulty;
-                this.difficultyManager.setDifficulty(difficulty);
+                const newSpeed = this.difficultyManager.setDifficulty(difficulty);
+                this.currentSpeed = newSpeed;
+                this.baseSpeed = newSpeed;
                 this.updateDifficultyDisplay();
             });
         });
@@ -259,11 +281,12 @@ export class Game {
     }
 
     setGameSpeed(speed) {
-        this.baseSpeed = speed;
+        this.currentSpeed = speed;
     }
 
     resetGameSpeed() {
-        this.baseSpeed = this.difficultyManager.getSpeed();
+        const baseSpeed = this.difficultyManager.getSpeed();
+        this.currentSpeed = baseSpeed;
     }
 
     setGhostMode(enabled) {
@@ -276,5 +299,13 @@ export class Game {
 
     resetScoreMultiplier() {
         this.scoreBoard.resetMultiplier();
+    }
+
+    getCurrentSpeed() {
+        return {
+            currentSpeed: this.currentSpeed,
+            baseSpeed: this.baseSpeed,
+            difficultySpeed: this.difficultyManager.getSpeed()
+        };
     }
 } 
