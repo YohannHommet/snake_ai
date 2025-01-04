@@ -40,6 +40,9 @@ export class Game {
         this.frameId = null;
         this.lastTime = 0;
         this.gameLoop = this.gameLoop.bind(this);
+        this.frameTime = 1000 / 60;  // Cibler 60 FPS
+        this.accumulator = 0;
+        this.maxAccumulator = 200;    // Éviter le spiral de la mort
         
         // Effets visuels
         this.flashEffect = 0;
@@ -91,6 +94,7 @@ export class Game {
         this.isRunning = true;
         this.soundManager.play('start');
         this.lastTime = performance.now();
+        this.accumulator = 0;  // Réinitialiser l'accumulateur
         
         // S'assurer que la vitesse est correctement initialisée
         this.baseSpeed = this.difficultyManager.getSpeed();
@@ -101,15 +105,20 @@ export class Game {
     gameLoop(currentTime) {
         if (!this.isRunning) return;
         
-        const deltaTime = currentTime - this.lastTime;
-        const speed = this.currentSpeed;
+        // Calculer le temps écoulé depuis la dernière frame
+        const deltaTime = Math.min(currentTime - this.lastTime, this.maxAccumulator);
+        this.accumulator += deltaTime;
         
-        if (deltaTime >= speed || !this.lastTime) {
+        // Mettre à jour la logique du jeu à un pas de temps fixe
+        while (this.accumulator >= this.currentSpeed) {
             this.update();
-            this.lastTime = currentTime;
-            this.draw();
+            this.accumulator -= this.currentSpeed;
         }
         
+        // Dessiner à chaque frame pour une animation fluide
+        this.draw();
+        
+        this.lastTime = currentTime;
         this.frameId = requestAnimationFrame(this.gameLoop);
     }
 
@@ -120,13 +129,21 @@ export class Game {
             cancelAnimationFrame(this.frameId);
             this.frameId = null;
         }
+        this.accumulator = 0;  // Réinitialiser l'accumulateur à la pause
     }
 
     reset() {
+        // Arrêter le jeu d'abord
         this.pause();
         this.soundManager.play('gameOver');
         
+        // Réinitialiser les power-ups avant tout
         this.powerUpManager.reset();
+        
+        // Réinitialiser les vitesses et multiplicateurs
+        this.currentSpeed = this.difficultyManager.getSpeed();
+        this.baseSpeed = this.currentSpeed;
+        
         const finalScore = this.scoreBoard.score;
         if (this.highScoreManager.isHighScore(finalScore)) {
             this.soundManager.play('highScore');
@@ -134,10 +151,18 @@ export class Game {
             this.updateHighScoresDisplay();
         }
         
+        // Réinitialiser les autres éléments
         this.snake.reset();
         this.food.relocate();
         this.scoreBoard.reset();
+        
+        // S'assurer que l'UI est à jour
         this.draw();
+        this.updateDifficultyDisplay();
+        
+        // Réinitialiser les timings
+        this.accumulator = 0;
+        this.lastTime = 0;
     }
 
     update() {
@@ -285,8 +310,7 @@ export class Game {
     }
 
     resetGameSpeed() {
-        const baseSpeed = this.difficultyManager.getSpeed();
-        this.currentSpeed = baseSpeed;
+        this.currentSpeed = this.difficultyManager.getSpeed();
     }
 
     setGhostMode(enabled) {

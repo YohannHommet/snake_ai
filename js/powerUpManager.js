@@ -32,6 +32,8 @@ export class PowerUpManager {
                 probability: 0.2
             }
         };
+
+        this.reset();
     }
 
     spawnPowerUp() {
@@ -130,6 +132,8 @@ export class PowerUpManager {
     }
 
     deactivateEffect(game) {
+        if (!this.activeEffect) return;
+
         switch (this.activeEffect) {
             case 'speedBoost':
             case 'timeFreeze':
@@ -140,12 +144,8 @@ export class PowerUpManager {
                 break;
         }
 
-        const ui = document.querySelector('.power-up-ui');
-        if (ui) {
-            ui.classList.remove('active');
-            const timer = ui.querySelector('.power-up-timer');
-            timer.style.animation = 'none';
-        }
+        this.hidePowerUpUI();
+        this.activeEffect = null;
     }
 
     draw(ctx) {
@@ -222,7 +222,10 @@ export class PowerUpManager {
         if (ui) {
             ui.classList.remove('active');
             const timer = ui.querySelector('.power-up-timer');
-            timer.style.animation = 'none';
+            if (timer) {
+                timer.style.animation = 'none';
+            }
+            ui.style.setProperty('--power-up-color', '#0ff');
         }
     }
 
@@ -236,11 +239,19 @@ export class PowerUpManager {
         if (this.effectTimer) {
             clearTimeout(this.effectTimer);
         }
+
         this.powerUpTimer = null;
         this.spawnTimer = null;
         this.effectTimer = null;
         this.powerUpPosition = null;
         this.activePowerUp = null;
+        this.activeEffect = null;
+
         this.hidePowerUpUI();
+        
+        if (window.game) {
+            window.game.resetGameSpeed();
+            window.game.resetScoreMultiplier();
+        }
     }
 } 
